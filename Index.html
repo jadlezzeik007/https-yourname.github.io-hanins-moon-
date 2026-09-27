@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanin's Moon - Twilight Harvest & Celestial Magic</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Cinzel Decorative, Plus Jakarta Sans, and Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        night: {
+                            900: '#0B0813',
+                            800: '#120D1D',
+                            700: '#1A0B2E',
+                            600: '#2B1B17',
+                        },
+                        purpleGlow: {
+                            light: '#7A32A8',
+                            DEFAULT: '#3B154C',
+                            dark: '#1F0B29',
+                        },
+                        sunset: {
+                            orange: '#FF6B3B',
+                            coral: '#FF8E53',
+                            pink: '#E83E8C',
+                            gold: '#FFD166',
+                            rose: '#FA8072',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['"Cinzel Decorative"', 'serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'spin-slow': 'spin 30s linear infinite',
+                        'shimmer': 'shimmer 2.5s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-18px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.6, filter: 'drop-shadow(0 0 25px rgba(255, 107, 59, 0.4))' },
+                            '50%': { opacity: 1, filter: 'drop-shadow(0 0 50px rgba(232, 62, 140, 0.8))' },
+                        },
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0813;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3B154C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B3B;
+        }
+
+        /* Ambient themes */
+        .theme-sunset {
+            --bg-gradient: linear-gradient(180deg, #120D1D 0%, #2B1B17 35%, #3B154C 70%, #1A0B2E 100%);
+            --glow-color: rgba(255, 107, 59, 0.35);
+        }
+        .theme-twilight {
+            --bg-gradient: linear-gradient(180deg, #0B0813 0%, #1A0B2E 40%, #2B1B17 80%, #120D1D 100%);
+            --glow-color: rgba(232, 62, 140, 0.35);
+        }
+        .theme-midnight {
+            --bg-gradient: linear-gradient(180deg, #05030A 0%, #0B0813 50%, #120D1D 100%);
+            --glow-color: rgba(122, 50, 168, 0.35);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            transition: background 1s ease-in-out;
+            color: #F3F4F6;
+        }
+
+        /* Glassmorphism styling */
+        .glass-panel {
+            background: rgba(18, 13, 29, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-panel-glow {
+            background: rgba(26, 11, 46, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 142, 83, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(255, 107, 59, 0.2);
+        }
+        .glass-panel-glow:hover {
+            border-color: rgba(255, 142, 83, 0.5);
+            box-shadow: 0 15px 35px -5px rgba(255, 107, 59, 0.35);
+        }
+
+        /* Text Gradients */
+        .text-gradient-sunset {
+            background: linear-gradient(135deg, #FFD166 0%, #FF8E53 40%, #FF6B3B 70%, #E83E8C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-moon {
+            background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 40%, #FFD166 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glowing Moon Styling */
+        .harvest-moon {
+            background: radial-gradient(circle at 35% 35%, #FFFDF0 0%, #FFD166 25%, #FF8E53 55%, #E83E8C 85%, #3B154C 100%);
+            box-shadow: 
+                inset -15px -15px 40px rgba(26, 11, 46, 0.8),
+                0 0 60px rgba(255, 142, 83, 0.6),
+                0 0 120px rgba(232, 62, 140, 0.4);
+        }
+
+        /* Sparkle animation */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .sparkle-icon {
+            animation: sparkle 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="theme-sunset font-sans antialiased overflow-x-hidden selection:bg-sunset-orange selection:text-white">
+
+    <!-- Canvas Background for Starfield & Floating Ember Dust -->
+    <canvas id="canvas-stars" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="glass-panel rounded-2xl px-6 py-3 flex items-center justify-between border border-white/10 shadow-2xl">
+                
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-full harvest-moon flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                        <i data-lucide="moon" class="w-5 h-5 text-night-900 fill-night-900/40"></i>
+                    </div>
+                    <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-gradient-sunset">
+                        Hanin's Moon
+                    </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                    <a href="#about" class="hover:text-sunset-gold transition-colors duration-200">The Legend</a>
+                    <a href="#magic" class="hover:text-sunset-gold transition-colors duration-200">Lunar Magic</a>
+                    <a href="#tracker" class="hover:text-sunset-gold transition-colors duration-200">Moon Tracker</a>
+                    <a href="#blessings" class="hover:text-sunset-gold transition-colors duration-200">Wish Generator</a>
+                    <a href="#gallery" class="hover:text-sunset-gold transition-colors duration-200">Gallery</a>
+                </div>
+
+                <!-- Ambience Controls & Mobile Menu Button -->
+                <div class="flex items-center space-x-3">
+                    <!-- Ambience Theme Selector Toggle -->
+                    <div class="relative group">
+                        <button id="themeToggleBtn" class="p-2.5 rounded-xl bg-purpleGlow/40 border border-purple-500/30 hover:border-sunset-orange/60 text-sunset-gold transition-all duration-300 flex items-center space-x-2 text-xs font-semibold" title="Change Sunset Ambience">
+                            <i data-lucide="sun-medium" class="w-4 h-4 text-sunset-orange"></i>
+                            <span class="hidden sm:inline" id="currentThemeLabel">Sunset Ember</span>
+                            <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="themeDropdown" class="hidden absolute right-0 mt-2 w-48 rounded-xl glass-panel py-2 shadow-2xl border border-white/10 z-50">
+                            <button onclick="setTheme('sunset')" class="w-full px-4 py-2 text-left text-xs text-gray-200 hover:bg-purpleGlow/50 flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-sunset-orange inline-block"></span>
+                                <span>Sunset Ember</span>
+                            </button>
+                            <button onclick="setTheme('twilight')" class="w-full px-4 py-2 text-left text-xs text-gray-200 hover:bg-purpleGlow/50 flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-sunset-pink inline-block"></span>
+                                <span>Twilight Glow</span>
+                            </button>
+                            <button onclick="setTheme('midnight')" class="w-full px-4 py-2 text-left text-xs text-gray-200 hover:bg-purpleGlow/50 flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-purple-600 inline-block"></span>
+                                <span>Midnight Purple</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Audio Ambience Sound Button -->
+                    <button id="audioToggleBtn" class="p-2.5 rounded-xl bg-purpleGlow/40 border border-purple-500/30 hover:border-sunset-pink/60 text-sunset-pink transition-all duration-300" title="Toggle Evening Ambience Audio">
+                        <i data-lucide="volume-x" id="audioIcon" class="w-4 h-4"></i>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Nav Dropdown -->
+            <div id="mobileMenu" class="hidden md:hidden mt-2 rounded-2xl glass-panel p-4 border border-white/10 space-y-3 text-center">
+                <a href="#about" class="block py-2 text-gray-200 hover:text-sunset-gold">The Legend</a>
+                <a href="#magic" class="block py-2 text-gray-200 hover:text-sunset-gold">Lunar Magic</a>
+                <a href="#tracker" class="block py-2 text-gray-200 hover:text-sunset-gold">Moon Tracker</a>
+                <a href="#blessings" class="block py-2 text-gray-200 hover:text-sunset-gold">Wish Generator</a>
+                <a href="#gallery" class="block py-2 text-gray-200 hover:text-sunset-gold">Gallery</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden z-10 px-4">
+        <!-- Background Ambient Glow Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-gradient-to-tr from-sunset-orange/20 via-sunset-pink/20 to-purple-800/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
+            
+            <!-- Floating Interactive Harvest Moon Component -->
+            <div class="relative my-6 cursor-pointer group" id="heroMoonContainer" onclick="pulseMoonEffect()">
+                <!-- Halo Effect behind Moon -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-r from-sunset-orange via-sunset-pink to-purple-600 blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-700 animate-pulse-glow"></div>
+                
+                <!-- The Main Moon Sphere -->
+                <div class="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full harvest-moon animate-float flex items-center justify-center overflow-hidden border-2 border-sunset-gold/30">
+                    <!-- Subtle Surface Craters -->
+                    <div class="absolute top-8 left-10 w-12 h-12 rounded-full bg-sunset-orange/20 blur-sm"></div>
+                    <div class="absolute bottom-12 right-12 w-16 h-16 rounded-full bg-purpleGlow-dark/30 blur-sm"></div>
+                    <div class="absolute top-20 right-16 w-8 h-8 rounded-full bg-sunset-pink/20 blur-xs"></div>
+                    
+                    <!-- Inner Celestial Icon overlay -->
+                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-night-900 font-cinzel text-xs font-bold bg-white/30 backdrop-blur-md px-3 py-1 rounded-full border border-white/50">
+                        Click to Bless Moon
+                    </div>
+                </div>
+
+                <!-- Floating Sparkles around Moon -->
+                <i data-lucide="sparkles" class="absolute -top-4 right-2 text-sunset-gold w-8 h-8 sparkle-icon"></i>
+                <i data-lucide="star" class="absolute bottom-4 -left-4 text-sunset-pink w-6 h-6 sparkle-icon" style="animation-delay: 1s;"></i>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-sunset-orange/10 border border-sunset-orange/30 text-sunset-gold text-xs sm:text-sm font-semibold mb-6 backdrop-blur-md">
+                <i data-lucide="sparkle" class="w-4 h-4 text-sunset-orange"></i>
+                <span>Welcome to Hanin's Celestial Haven</span>
+            </div>
+
+            <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Where Twilight Harvest Meets <br class="hidden sm:inline"/>
+                <span class="text-gradient-sunset drop-shadow-lg">Magical Moonlight</span>
+            </h1>
+
+            <p class="font-serif italic text-lg sm:text-2xl text-gray-300 max-w-2xl mb-10 leading-relaxed font-light">
+                "Under the glowing amber sky of Hanin's Moon, every seed planted carries a promise, and every twilight harvest sparkles with ancient magic."
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
+                <a href="#blessings" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sunset-orange via-sunset-pink to-purple-600 text-white font-semibold shadow-lg shadow-sunset-orange/30 hover:shadow-sunset-pink/50 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span>Receive Harvest Blessing</span>
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 rounded-2xl glass-panel text-gray-200 font-semibold hover:bg-white/10 border border-white/15 hover:border-sunset-gold/50 transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i data-lucide="book-open" class="w-5 h-5 text-sunset-gold"></i>
+                    <span>Read The Lore</span>
+                </a>
+            </div>
+
+            <!-- Quick Stats Bar -->
+            <div class="grid grid-cols-3 gap-4 sm:gap-8 mt-16 max-w-2xl w-full glass-panel rounded-2xl p-4 sm:p-6 border border-white/10">
+                <div>
+                    <p class="font-cinzel text-2xl sm:text-3xl font-bold text-sunset-gold" id="blessingCounter">1,482</p>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1">Wishes Granted</p>
+                </div>
+                <div class="border-x border-white/10">
+                    <p class="font-cinzel text-2xl sm:text-3xl font-bold text-sunset-pink">98%</p>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1">Lunar Illumination</p>
+                </div>
+                <div>
+                    <p class="font-cinzel text-2xl sm:text-3xl font-bold text-sunset-orange">Autumn</p>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1">Current Season</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Tale & About Section -->
+    <section id="about" class="relative py-24 px-4 z-10">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-sunset-orange uppercase">Enchanted Chronicle</span>
+                <h2 class="font-cinzel text-3xl sm:text-5xl font-bold mt-2 text-gradient-moon">
+                    The Tale of Hanin's Moon
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-sunset-orange to-sunset-pink mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Story Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Lore Narrative Panel -->
+                <div class="glass-panel rounded-3xl p-8 sm:p-10 border border-white/10 relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-sunset-orange/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="p-3 rounded-2xl bg-purpleGlow/60 border border-sunset-orange/40 text-sunset-orange">
+                            <i data-lucide="moon-star" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-cinzel text-xl font-bold text-sunset-gold">The Autumnal Convergence</h3>
+                            <p class="text-xs text-gray-400">Recorded in the Celestial Grimoire</p>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 leading-relaxed mb-4 font-serif text-base sm:text-lg">
+                        Once every century, when the sun dips low beneath the purple-hued horizons of the autumnal dusk, <span class="text-sunset-gold font-semibold">Hanin's Moon</span> rises in full, radiant splendour. It is neither purely night nor day, but an everlasting twilight where magic flows through the soil.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed font-serif text-base sm:text-lg">
+                        Folk legends tell of spirits that wander the orchards under this crimson-gold canopy, bestowing bountiful harvests, starfall blossoms, and quiet peacefulness to all who pause to behold its beauty.
+                    </p>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                        <span class="text-xs text-sunset-coral font-mono">ENCHANTMENT LEVEL: 100%</span>
+                        <i data-lucide="sparkles" class="w-5 h-5 text-sunset-gold"></i>
+                    </div>
+                </div>
+
+                <!-- Lore Features Cards -->
+                <div class="space-y-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-panel-glow rounded-2xl p-6 transition-all duration-300 hover:translate-x-2 flex items-start space-x-4">
+                        <div class="p-3 rounded-xl bg-sunset-orange/20 text-sunset-orange flex-shrink-0 mt-1">
+                            <i data-lucide="sun" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-cinzel text-lg font-bold text-white mb-1">Twilight Sunsets</h4>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Soft gradients of deep violet, fiery rose, and warm ember blanket the skies as evening approaches, calming the mind and comforting the soul.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel-glow rounded-2xl p-6 transition-all duration-300 hover:translate-x-2 flex items-start space-x-4">
+                        <div class="p-3 rounded-xl bg-sunset-pink/20 text-sunset-pink flex-shrink-0 mt-1">
+                            <i data-lucide="wheat" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-cinzel text-lg font-bold text-white mb-1">Celestial Harvests</h4>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Crops nurtured under Hanin's lunar rays radiate a soft bioluminescent glow, yielding fruits enriched with peaceful twilight energy.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel-glow rounded-2xl p-6 transition-all duration-300 hover:translate-x-2 flex items-start space-x-4">
+                        <div class="p-3 rounded-xl bg-purple-500/20 text-purple-300 flex-shrink-0 mt-1">
+                            <i data-lucide="wand-2" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-cinzel text-lg font-bold text-white mb-1">Whispering Spirits</h4>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Gentle autumn breezes carry the songs of ethereal harvest spirits, offering wisdom and granting wholesome evening blessings.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lore Cards Grid Section -->
+    <section id="magic" class="relative py-20 px-4 z-10 bg-night-800/40 border-y border-white/5">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-sunset-pink uppercase">Wonders of the Harvest</span>
+                <h2 class="font-cinzel text-3xl sm:text-5xl font-bold mt-2 text-gradient-sunset">
+                    Celestial Treasures & Artifacts
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base mt-4">Discover the unique magical elements that bloom beneath Hanin's Harvest Moon.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Artifact Card 1 -->
+                <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-sunset-orange/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-xl bg-sunset-orange/20 flex items-center justify-center text-sunset-orange mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="flower-2" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-mono text-sunset-gold">LUNAR FLORA</span>
+                    <h3 class="font-cinzel text-xl font-bold text-white my-2">Starfall Blossoms</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Rare midnight flowers that unfurl only when the full harvest moon hits its zenith, dropping glowing stardust onto the autumn soil.</p>
+                </div>
+
+                <!-- Artifact Card 2 -->
+                <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-sunset-pink/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-xl bg-sunset-pink/20 flex items-center justify-center text-sunset-pink mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="gem" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-mono text-sunset-pink">CELESTIAL ORE</span>
+                    <h3 class="font-cinzel text-xl font-bold text-white my-2">Ember Shards</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Crystalline minerals infused with the warmth of sunset rays and midnight shadows, used to forge glowing lanterns for nocturnal walks.</p>
+                </div>
+
+                <!-- Artifact Card 3 -->
+                <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-300 mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="ghost" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-mono text-purple-300">GUARDIANS</span>
+                    <h3 class="font-cinzel text-xl font-bold text-white my-2">Harvest Sprites</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Playful, benevolent forest spirits that tend to nocturnal crops and leave gifts of ripe golden pumpkins on cozy porch steps.</p>
+                </div>
+
+                <!-- Artifact Card 4 -->
+                <div class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-sunset-gold/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-12 h-12 rounded-xl bg-sunset-gold/20 flex items-center justify-center text-sunset-gold mb-5 group-hover:scale-110 transition-transform">
+                        <i data-lucide="glass-water" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-xs font-mono text-sunset-gold">ELIXIR</span>
+                    <h3 class="font-cinzel text-xl font-bold text-white my-2">Twilight Nectar</h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">A sweet beverage brewed from night-blooming berries and honey, famous across the realm for invoking serene, magical dreams.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Moon Phase & Sunset Tracker Widget -->
+    <section id="tracker" class="relative py-24 px-4 z-10">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/15 relative overflow-hidden shadow-2xl">
+                <div class="absolute -top-24 -left-24 w-72 h-72 bg-sunset-pink/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
+                    
+                    <!-- Tracker Left Controls -->
+                    <div class="lg:w-1/2 space-y-6">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purpleGlow border border-purple-400/30 text-sunset-gold text-xs">
+                            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                            <span>Real-time Celestial Observatory</span>
+                        </div>
+
+                        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+                            Hanin's Moon Tracker & Sunset Clock
+                        </h2>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Simulate the moon's current illumination phase, calculate the precise twilight harvest hour, and discover lore trivia corresponding to tonight's sky.
+                        </p>
+
+                        <!-- Controls / Sliders -->
+                        <div class="space-y-4 pt-4 border-t border-white/10">
+                            <div>
+                                <div class="flex justify-between text-xs text-gray-300 mb-2">
+                                    <span>Simulate Lunar Illumination</span>
+                                    <span id="phasePercent" class="text-sunset-gold font-bold">100% (Full Harvest)</span>
+                                </div>
+                                <input type="range" id="moonPhaseSlider" min="0" max="100" value="100" class="w-full h-2 bg-night-900 rounded-lg appearance-none cursor-pointer accent-sunset-orange">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 text-xs">
+                                <div class="p-3 rounded-xl bg-night-900/60 border border-white/5">
+                                    <span class="text-gray-400 block mb-1">Sunset Time</span>
+                                    <span class="text-sunset-coral font-bold text-sm">6:42 PM Dusk</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-night-900/60 border border-white/5">
+                                    <span class="text-gray-400 block mb-1">Moonrise Zenith</span>
+                                    <span class="text-sunset-pink font-bold text-sm">8:15 PM Glow</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tracker Right Visual Display -->
+                    <div class="lg:w-1/2 flex flex-col items-center justify-center p-8 rounded-2xl bg-night-900/70 border border-white/10 w-full relative">
+                        
+                        <!-- Moon Canvas / Dynamic Element -->
+                        <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl" id="dynamicMoonDisplay">
+                            <!-- Visual Moon Sphere -->
+                            <div id="moonShadowOverlay" class="absolute inset-0 rounded-full harvest-moon transition-all duration-300"></div>
+                            <i data-lucide="sparkles" class="w-10 h-10 text-white/80 z-10 animate-pulse"></i>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <h4 id="moonPhaseTitle" class="font-cinzel text-xl font-bold text-sunset-gold">Full Harvest Moon</h4>
+                            <p id="moonPhaseDesc" class="text-xs text-gray-300 mt-2 max-w-xs">
+                                "The peak of magical energy. Crops harvested now glow with radiant autumn vitality."
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Wish & Crop Blessing Generator -->
+    <section id="blessings" class="relative py-20 px-4 z-10 bg-night-800/30">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <span class="text-xs font-semibold tracking-widest text-sunset-gold uppercase">Celestial Oracle</span>
+            <h2 class="font-cinzel text-3xl sm:text-5xl font-bold mt-2 text-gradient-sunset">
+                Harvest Blessings & Wish Generator
+            </h2>
+            <p class="text-gray-300 text-sm sm:text-base mt-3 max-w-xl mx-auto">
+                Offer your wish to Hanin's Moon and receive a personalized autumn blessing and celestial fortune.
+            </p>
+
+            <div class="mt-10 glass-panel rounded-3xl p-8 sm:p-10 border border-white/10 relative">
+                
+                <div class="max-w-md mx-auto space-y-4">
+                    <div class="relative">
+                        <input type="text" id="wishInput" placeholder="Enter your autumn wish or dedication..." class="w-full px-5 py-4 rounded-xl bg-night-900/80 border border-purple-500/30 text-white placeholder-gray-500 focus:outline-none focus:border-sunset-orange transition-colors text-sm">
+                    </div>
+
+                    <button onclick="generateWishBlessing()" class="w-full py-4 rounded-xl bg-gradient-to-r from-sunset-orange via-sunset-pink to-purple-600 text-white font-semibold shadow-lg hover:brightness-110 transition-all flex items-center justify-center space-x-2">
+                        <i data-lucide="wand-2" class="w-5 h-5"></i>
+                        <span>Consult Hanin's Moon</span>
+                    </button>
+                </div>
+
+                <!-- Wish Result Modal / Display -->
+                <div id="blessingResult" class="hidden mt-8 p-6 rounded-2xl bg-purpleGlow/30 border border-sunset-gold/40 text-left animate-fade-in">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="p-2 rounded-lg bg-sunset-orange/20 text-sunset-gold">
+                            <i data-lucide="scroll" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-cinzel font-bold text-sunset-gold text-lg">Your Harvest Oracle Reading</h4>
+                    </div>
+                    <p id="blessingText" class="font-serif italic text-gray-200 text-base leading-relaxed">
+                        "Your wish has been etched into the stars above Hanin's Moon..."
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
+                        <span>Blessed Crop: <strong id="blessedCrop" class="text-sunset-pink">Golden Pumpkin</strong></span>
+                        <span>Lucky Aura: <strong id="luckyColor" class="text-sunset-gold">Ember Gold</strong></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Photo Gallery / Artifact Lightbox Grid -->
+    <section id="gallery" class="relative py-24 px-4 z-10">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-sunset-orange uppercase">Visual Impressions</span>
+                <h2 class="font-cinzel text-3xl sm:text-5xl font-bold mt-2 text-gradient-moon">
+                    Scenes from Hanin's Moon
+                </h2>
+                <p class="text-gray-400 text-sm mt-3">Moments captured during the golden twilight harvest.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center items-center space-x-2 sm:space-x-4 mb-10 overflow-x-auto pb-2">
+                <button onclick="filterGallery('all')" class="px-5 py-2 rounded-full text-xs font-semibold bg-sunset-orange text-night-900 transition-all">All Scenery</button>
+                <button onclick="filterGallery('twilight')" class="px-5 py-2 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all">Twilight Skies</button>
+                <button onclick="filterGallery('harvest')" class="px-5 py-2 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all">Autumn Fields</button>
+                <button onclick="filterGallery('magic')" class="px-5 py-2 rounded-full text-xs font-semibold glass-panel text-gray-300 hover:text-white transition-all">Moon Rituals</button>
+            </div>
+
+            <!-- Gallery Cards Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+                
+                <!-- Item 1 -->
+                <div class="gallery-item twilight glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-purple-900 via-night-800 to-sunset-orange/40 relative flex items-center justify-center p-6">
+                        <div class="w-24 h-24 rounded-full harvest-moon animate-pulse-glow"></div>
+                        <div class="absolute inset-0 bg-night-900/30 group-hover:bg-transparent transition-colors duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-orange uppercase">Skyline</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">Twilight Horizon</h4>
+                        <p class="text-xs text-gray-400 mt-1">The iconic purple dusk falling over the valley.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="gallery-item harvest glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-sunset-orange/30 via-purpleGlow to-night-900 relative flex items-center justify-center p-6">
+                        <i data-lucide="wheat" class="w-20 h-20 text-sunset-gold opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-gold uppercase">Fields</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">Golden Wheat Sheaves</h4>
+                        <p class="text-xs text-gray-400 mt-1">Glowing stalks awaiting the evening harvest sickle.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="gallery-item magic glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-sunset-pink/30 via-purple-900 to-night-900 relative flex items-center justify-center p-6">
+                        <i data-lucide="sparkles" class="w-20 h-20 text-sunset-pink opacity-80 group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-pink uppercase">Ritual</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">Starfall Gathering</h4>
+                        <p class="text-xs text-gray-400 mt-1">Spirits celebrating under the glowing harvest moon.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="gallery-item twilight glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-night-900 via-purple-900 to-sunset-pink/40 relative flex items-center justify-center p-6">
+                        <i data-lucide="lamp-ceiling" class="w-20 h-20 text-sunset-coral opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-coral uppercase">Skyline</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">Ember Lantern Path</h4>
+                        <p class="text-xs text-gray-400 mt-1">Illuminated cobblestone trails leading to the grove.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="gallery-item harvest glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-sunset-gold/30 via-sunset-orange/20 to-night-900 relative flex items-center justify-center p-6">
+                        <i data-lucide="apple" class="w-20 h-20 text-sunset-orange opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-gold uppercase">Fields</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">Moonlit Orchards</h4>
+                        <p class="text-xs text-gray-400 mt-1">Ripe apples glowing under amber moonlight.</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="gallery-item magic glass-panel rounded-2xl overflow-hidden group border border-white/10 relative">
+                    <div class="h-64 bg-gradient-to-tr from-purple-800 via-night-900 to-sunset-gold/30 relative flex items-center justify-center p-6">
+                        <i data-lucide="flame" class="w-20 h-20 text-sunset-gold opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono text-sunset-gold uppercase">Ritual</span>
+                        <h4 class="font-cinzel font-bold text-white text-lg mt-1">The Dusk Hearth</h4>
+                        <p class="text-xs text-gray-400 mt-1">Warm communal bonfire in the heart of the village.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="relative z-10 pt-20 pb-10 border-t border-white/10 overflow-hidden bg-night-900/90">
+        
+        <!-- Glowing Horizon Footer Effect -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sunset-orange via-sunset-pink to-purple-600"></div>
+        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-sunset-orange/10 blur-3xl pointer-events-none rounded-full"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-white/10">
+                
+                <!-- Brand Info -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full harvest-moon flex items-center justify-center">
+                            <i data-lucide="moon" class="w-4 h-4 text-night-900"></i>
+                        </div>
+                        <span class="font-cinzel text-2xl font-bold text-gradient-sunset">Hanin's Moon</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-sm leading-relaxed">
+                        A cozy celestial sanctuary celebrating the serene magic of autumn harvests, glowing sunsets, and twilight moonlight.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-sunset-gold hover:border-sunset-gold/50 transition-all">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-sunset-pink hover:border-sunset-pink/50 transition-all">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-sunset-orange hover:border-sunset-orange/50 transition-all">
+                            <i data-lucide="github" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="md:col-span-3 space-y-3">
+                    <h5 class="font-cinzel text-white font-bold text-sm">Celestial Guide</h5>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#about" class="hover:text-sunset-gold transition-colors">Lore & Legend</a></li>
+                        <li><a href="#magic" class="hover:text-sunset-gold transition-colors">Harvest Artifacts</a></li>
+                        <li><a href="#tracker" class="hover:text-sunset-gold transition-colors">Moon Phase Clock</a></li>
+                        <li><a href="#blessings" class="hover:text-sunset-gold transition-colors">Wish Generator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Subscription -->
+                <div class="md:col-span-4 space-y-3">
+                    <h5 class="font-cinzel text-white font-bold text-sm">Twilight Chronicles</h5>
+                    <p class="text-xs text-gray-400">Subscribe to receive moon phase alerts and autumn harvest notifications.</p>
+                    
+                    <form onsubmit="event.preventDefault(); handleSubscribe();" class="flex flex-col sm:flex-row gap-2 pt-1">
+                        <input type="email" id="subscribeEmail" placeholder="your.spirit@moon.com" required class="px-4 py-2.5 rounded-xl bg-night-800 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-sunset-pink flex-1">
+                        <button type="submit" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sunset-orange to-sunset-pink text-night-900 font-bold text-xs hover:brightness-110 transition-all">
+                            Join Sky
+                        </button>
+                    </form>
+                    <p id="subscribeMsg" class="hidden text-[11px] text-sunset-gold">Thank you for joining the celestial realm!</p>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 Hanin's Moon. Crafted with twilight embers & celestial magic.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-400">Privacy Spell</a>
+                    <a href="#" class="hover:text-gray-400">Terms of Sanctuary</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Interactive Theme Selector Logic
+        const themeDropdown = document.getElementById('themeDropdown');
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const currentThemeLabel = document.getElementById('currentThemeLabel');
+
+        themeToggleBtn.addEventListener('click', () => {
+            themeDropdown.classList.toggle('hidden');
+        });
+
+        function setTheme(theme) {
+            document.body.classList.remove('theme-sunset', 'theme-twilight', 'theme-midnight');
+            themeDropdown.classList.add('hidden');
+            
+            if(theme === 'sunset') {
+                document.body.classList.add('theme-sunset');
+                currentThemeLabel.innerText = "Sunset Ember";
+            } else if(theme === 'twilight') {
+                document.body.classList.add('theme-twilight');
+                currentThemeLabel.innerText = "Twilight Glow";
+            } else if(theme === 'midnight') {
+                document.body.classList.add('theme-midnight');
+                currentThemeLabel.innerText = "Midnight Purple";
+            }
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!themeToggleBtn.contains(e.target) && !themeDropdown.contains(e.target)) {
+                themeDropdown.classList.add('hidden');
+            }
+        });
+
+        // 2. Mobile Navigation Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 3. Audio Ambient Player Simulation
+        let isAudioPlaying = false;
+        const audioToggleBtn = document.getElementById('audioToggleBtn');
+        const audioIcon = document.getElementById('audioIcon');
+
+        // Web Audio API Ambient Synthesizer
+        let audioCtx, osc, gainNode;
+
+        audioToggleBtn.addEventListener('click', () => {
+            if(!isAudioPlaying) {
+                startAmbientSound();
+                audioIcon.setAttribute('data-lucide', 'volume-2');
+                audioToggleBtn.classList.add('border-sunset-gold');
+                isAudioPlaying = true;
+            } else {
+                stopAmbientSound();
+                audioIcon.setAttribute('data-lucide', 'volume-x');
+                audioToggleBtn.classList.remove('border-sunset-gold');
+                isAudioPlaying = false;
+            }
+            lucide.createIcons();
+        });
+
+        function startAmbientSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+                
+                // Warm ambient swell oscillator
+                osc = audioCtx.createOscillator();
+                gainNode = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 warm harmonic tone
+
+                gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 3);
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start();
+            } catch(e) {
+                console.log("Audio Context not supported or allowed without interaction.");
+            }
+        }
+
+        function stopAmbientSound() {
+            if(gainNode && audioCtx) {
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1);
+                setTimeout(() => {
+                    if(osc) osc.stop();
+                }, 1000);
+            }
+        }
+
+        // 4. Hero Moon Interactive Pulse Effect
+        let blessingCount = 1482;
+        function pulseMoonEffect() {
+            const moon = document.querySelector('.harvest-moon');
+            moon.style.transform = 'scale(1.15) rotate(10deg)';
+            setTimeout(() => {
+                moon.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+
+            blessingCount++;
+            document.getElementById('blessingCounter').innerText = blessingCount.toLocaleString();
+        }
+
+        // 5. Moon Phase Tracker Slider Dynamic Logic
+        const moonPhaseSlider = document.getElementById('moonPhaseSlider');
+        const phasePercent = document.getElementById('phasePercent');
+        const moonPhaseTitle = document.getElementById('moonPhaseTitle');
+        const moonPhaseDesc = document.getElementById('moonPhaseDesc');
+        const moonShadowOverlay = document.getElementById('moonShadowOverlay');
+
+        moonPhaseSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            phasePercent.innerText = `${val}% Illumination`;
+
+            // Adjust moon shadow scale
+            const shadowOpacity = 1 - (val / 100);
+            moonShadowOverlay.style.filter = `brightness(${0.3 + (val / 100) * 0.7})`;
+
+            if (val > 85) {
+                moonPhaseTitle.innerText = "Full Harvest Moon";
+                moonPhaseDesc.innerText = "\"The peak of magical energy. Crops harvested now glow with radiant autumn vitality.\"";
+            } else if (val > 50) {
+                moonPhaseTitle.innerText = "Gibbous Sunset Glow";
+                moonPhaseDesc.innerText = "\"Soft evening rays fill the fields. Perfect for gathering starfall blossoms.\"";
+            } else if (val > 20) {
+                moonPhaseTitle.innerText = "Crescent Dusk";
+                moonPhaseDesc.innerText = "\"Gentle, quiet moonlight ideal for night walks and reflecting under ember skies.\"";
+            } else {
+                moonPhaseTitle.innerText = "New Moon Veil";
+                moonPhaseDesc.innerText = "\"The stars shine brightest tonight. The forest spirits rests peacefully.\"";
+            }
+        });
+
+        // 6. Wish Blessing Generator Logic
+        const blessingsList = [
+            "Hanin's Moon smiles upon your heart. May your harvest yield peace, warmth, and boundless joy.",
+            "As the twilight sky turns to amber gold, your wish rises with the evening breeze to touch the stars.",
+            "A rare Starfall Blossom blooms in your honor tonight. Expect serene magic in your coming days.",
+            "The harvest spirits whisper words of comfort: Your dedication will yield rich, sweet rewards."
+        ];
+        const cropList = ["Golden Pumpkin", "Bioluminescent Berries", "Starfall Lily", "Ember Honeycomb", "Sunset Apple"];
+        const colorList = ["Ember Gold", "Midnight Purple", "Twilight Pink", "Sunset Crimson"];
+
+        function generateWishBlessing() {
+            const input = document.getElementById('wishInput').value;
+            const resultBox = document.getElementById('blessingResult');
+            const blessingText = document.getElementById('blessingText');
+            const blessedCrop = document.getElementById('blessedCrop');
+            const luckyColor = document.getElementById('luckyColor');
+
+            if(!input.trim()) {
+                alert("Please write your wish or dedication first!");
+                return;
+            }
+
+            const randomBlessing = blessingsList[Math.floor(Math.random() * blessingsList.length)];
+            const randomCrop = cropList[Math.floor(Math.random() * cropList.length)];
+            const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
+
+            blessingText.innerText = `"${randomBlessing}"`;
+            blessedCrop.innerText = randomCrop;
+            luckyColor.innerText = randomColor;
+
+            resultBox.classList.remove('hidden');
+        }
+
+        // 7. Gallery Filter Logic
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if(category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 8. Newsletter Handler
+        function handleSubscribe() {
+            document.getElementById('subscribeMsg').classList.remove('hidden');
+            document.getElementById('subscribeEmail').value = '';
+        }
+
+        // 9. Starfield & Sunset Ember Particle Canvas
+        const canvas = document.getElementById('canvas-stars');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor((canvas.width * canvas.height) / 9000);
+            for(let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.8 + 0.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.3 + 0.1,
+                    color: Math.random() > 0.4 ? '#FFD166' : (Math.random() > 0.5 ? '#FF8E53' : '#E83E8C')
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.y -= p.speed;
+                p.alpha += (Math.random() - 0.5) * 0.02;
+
+                if (p.alpha < 0.1) p.alpha = 0.1;
+                if (p.alpha > 0.9) p.alpha = 0.9;
+
+                if (p.y < 0) {
+                    p.y = canvas.height;
+                    p.x = Math.random() * canvas.width;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.onload = function() {
+            resizeCanvas();
+            animateParticles();
+        }
+    </script>
+</body>
+</html>
